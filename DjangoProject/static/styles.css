@@ -1,0 +1,98 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh; /* Para que ocupe toda la ventana */
+}
+
+.section-title {
+    font-size: 32px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    color: #333;
+    margin: 30px 0;
+    position: relative;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #007BFF;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.menu a {
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.menu a:hover {
+    background-color: #007BFF;
+    color: white;
+}
+
+.sidebar {
+    width: 220px;
+    background-color: slateblue;
+    color: white;
+    height: 100vh;
+    position: fixed; /* Fija la sidebar */
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sidebar a:hover {
+    background-color: navy;
+}
+
+.content {
+    margin-left: 220px; /* igual al ancho del sidebar */
+    padding: 20px;
+    overflow-y: auto;
+    height: 100vh; /* para que tenga altura completa y scroll si hace falta */
+    box-sizing: border-box; /* para que padding no aumente el ancho */
+}
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #e3e3e3;
+}
