@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Charge csv</title>
+    <title>Statistics Capstone App</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -399,9 +399,9 @@
             <h2>Análisis de Probabilidad y Predicciones</h2>
 
             <h3>Probabilidades Calculadas</h3>
-            <table border="1">
+            <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse;">
                 <thead>
-                <tr>
+                <tr style="background-color: #eee;">
                     <th>Descripción</th>
                     <th>Probabilidad</th>
                 </tr>
@@ -412,56 +412,82 @@
                         <td>{{ prob.0 }}</td>
                         <td>{{ prob.1 }}</td>
                     </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">No hay datos de probabilidad disponibles.</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>
 
             <h3>Predicciones Basadas en el Modelo</h3>
-            <table border="1">
+            <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse;">
                 <thead>
-                <tr>
-                    <th>Puesto</th>
-                    <th>Características</th>
-                    <th>Productividad Estimada</th>
-                    <th>Intervalo de Confianza</th>
+                <tr style="background-color: #eee;">
+                    <th>Uso de IA (horas)</th>
+                    <th>Bugs Reportados</th>
+                    <th>Productividad Promedio</th>
+                    <th>Intervalo de Confianza 95%</th>
+                    <th>Tamaño de muestra (n)</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for p in predicciones %}
                     <tr>
-                        <td>{{ p.0 }}</td>
-                        <td>{{ p.1 }}</td>
-                        <td>{{ p.2 }}</td>
-                        <td>{{ p.3 }}</td>
+                        <td>{{ p.uso_IA }}</td>
+                        <td>{{ p.bugs }}</td>
+                        <td>{{ p.promedio_productividad }}</td>
+                        <td>
+                            {% if p.intervalo_confianza_95 %}
+                                {{ p.intervalo_confianza_95.0 }} - {{ p.intervalo_confianza_95.1 }}
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                        <td>{{ p.n }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No hay predicciones disponibles.</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
 
             <h3>Modelo de Regresión Lineal</h3>
-            <p><strong>Fórmula:</strong> {{ modelo_regresion.formula }}</p>
-            <p><strong>R²:</strong> {{ modelo_regresion.r2 }}</p>
+            {% if modelo_regresion.formula %}
+                <p><strong>Fórmula:</strong> {{ modelo_regresion.formula }}</p>
+            {% else %}
+                <p><em>No se ha calculado la fórmula del modelo.</em></p>
+            {% endif %}
+            {% if modelo_regresion.r2 %}
+                <p><strong>R²:</strong> {{ modelo_regresion.r2 }}</p>
+            {% else %}
+                <p><em>No se ha calculado el coeficiente de determinación (R²).</em></p>
+            {% endif %}
 
             <h3>Conclusión del Análisis</h3>
             <p>
                 El análisis de probabilidad permite identificar patrones relevantes en la productividad de los
-                desarrolladores.
-                Por ejemplo, se observa que la probabilidad de superar cierto umbral de productividad está influenciada
-                por
-                factores
-                como las horas de sueño, el consumo de café y el uso de herramientas de IA. Las predicciones sugieren
-                que a
-                mayor experiencia
-                y formación académica, mayor es la productividad esperada. El modelo de regresión tiene un R²
-                de {{ modelo_regresion.r2 }},
-                lo que indica que aproximadamente {{ modelo_regresion.r2|floatformat:0 }}% de la variabilidad en la
-                productividad
-                puede ser explicada por las variables seleccionadas. Esto ofrece una base sólida para tomar decisiones
-                sobre
-                estrategias
-                de mejora del rendimiento.
+                desarrolladores. Por ejemplo, se observa que la probabilidad de superar cierto umbral de productividad
+                está
+                influenciada por factores como las horas de sueño, el consumo de café y el uso de herramientas de IA.
+                Las
+                predicciones sugieren que a mayor experiencia y formación académica, mayor es la productividad esperada.
+                El
+                modelo de regresión tiene un R² de
+                {% if modelo_regresion.r2 %}
+                    {{ modelo_regresion.r2 }},
+                    lo que indica que aproximadamente {{ modelo_regresion.r2|floatformat:0 }}% de la variabilidad en la
+                    productividad puede ser explicada por las variables seleccionadas.
+                {% else %}
+                    (no disponible),
+                    por lo que no se puede estimar la calidad del modelo.
+                {% endif %}
+                Esto ofrece una base sólida para tomar decisiones sobre estrategias de mejora del rendimiento.
             </p>
         </div>
+
 
         <div id="conclusiones"
              style="margin-top: 40px; padding: 20px; border: 2px solid #4CAF50; border-radius: 10px; display:none;">

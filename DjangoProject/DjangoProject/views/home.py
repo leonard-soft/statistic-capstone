@@ -1,9 +1,12 @@
 import os
+
+import numpy as np
 import pandas as pd
 import statistics
 from django.shortcuts import render
 from django.conf import settings
 import json
+from scipy import stats
 
 
 def home(request):
@@ -89,18 +92,36 @@ def home(request):
             print(round(p_prod_mayor_80, 2))
             probabilidad_info.append(["P (Productividad > 80)", round(p_prod_mayor_80, 2)])
 
-        # Predicciones (simplificadas)
-        if all(col in df.columns for col in ['productividad']):
-            predicciones = [
-                ["Desarrollador Junior", "2 años exp., Licenciatura, Remoto", 68, "[62, 74]"],
-                ["Desarrollador Senior", "8 años exp., Maestría, Híbrido", 82, "[76, 88]"],
-                ["Desarrollador Experto", "12 años exp., Doctorado, Presencial", 91, "[85, 97]"]
-            ]
+        df['productividad'] = df['commits'] / df['hours_coding']
 
-            modelo_regresion = {
-                'formula': "Productividad = 45.2 + 3.8×(Años_Experiencia) + 2.1×(Nivel_Educación) + 1.5×(Horas_Trabajo)",
-                'r2': 0.72
-            }
+        df['productividad'] = df['productividad'].replace([np.inf, -np.inf], np.nan).dropna()
+
+        grupos = df.groupby(['ai_usage_hours', 'bugs_reported'])
+
+        resultados = []
+
+        for (ai, bugs), grupo in grupos:
+            prod = grupo['productividad'].dropna()
+            n = len(prod)
+            if n < 2:
+                continue
+
+            media = prod.mean()
+            std = prod.std(ddof=1)
+            sem = std / np.sqrt(n)
+
+            # 95% de confianza
+            t_crit = stats.t.ppf(1 - 0.025, df=n - 1)
+            margen_error = t_crit * sem
+            ic = [media - margen_error, media + margen_error]
+
+            predicciones.append({
+                'uso_IA': ai,
+                'bugs': bugs,
+                'promedio_productividad': round(media, 2),
+                'intervalo_confianza_95': [round(ic[0], 2), round(ic[1], 2)],
+                'n': n
+            })
 
         variables_frecuencia = ['distractions', 'task_success', 'bugs_reported', 'commits']
         for var in variables_frecuencia:
