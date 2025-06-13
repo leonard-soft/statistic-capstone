@@ -7,6 +7,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+<button id="toggleSidebar" class="hamburger">
+    ☰
+</button>
 <div class="sidebar">
     <h2 class="section-title">Content</h2>
     <div class="menu">
@@ -686,6 +689,20 @@
         cambiarGrafico('histograma');
         showContent('tabla');
     };
+</script>
+<script>
+    const toggleBtn = document.getElementById("toggleSidebar");
+    const sidebar = document.querySelector(".sidebar");
+
+    toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("sidebar.active");
+    });
+
+    document.addEventListener("click", function(event) {
+        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
+            sidebar.classList.remove("active");
+        }
+    });
 </script>
 
 </body>

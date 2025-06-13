@@ -1,4 +1,3 @@
-/* Reset básico */
 *,
 *::before,
 *::after {
@@ -17,7 +16,6 @@ body, html {
     min-height: 100vh;
 }
 
-/* Sidebar */
 .sidebar {
     position: fixed;
     top: 0;
@@ -68,7 +66,7 @@ body, html {
     transform: scale(1.05);
 }
 
-/* Contenedor principal */
+
 .main-container {
     margin-left: 260px;
     flex: 1 1 auto; /* Ocupa todo el espacio restante */
@@ -82,12 +80,12 @@ body, html {
     transition: margin-left 0.3s ease;
 }
 
-/* Si sidebar está expandida */
+
 .sidebar:hover ~ .main-container {
     margin-left: 280px;
 }
 
-/* Contenido que ocupa todo el alto disponible menos padding */
+
 .content {
     flex: 1;
     display: flex;
@@ -98,7 +96,7 @@ body, html {
     padding: 1rem;
 }
 
-/* Animaciones */
+
 @keyframes fadeInUp {
     0% {
         opacity: 0;
@@ -110,7 +108,7 @@ body, html {
     }
 }
 
-/* Títulos */
+
 h2 {
     font-size: 2.4rem;
     font-weight: 700;
@@ -127,7 +125,7 @@ h3 {
     font-weight: 600;
 }
 
-/* Tabla centrada con max-width y sombra */
+
 .table-responsive {
     overflow-x: auto;
     width: 100%;
@@ -189,7 +187,6 @@ table tbody tr td {
     user-select: text;
 }
 
-/* Botones personalizados */
 .btn-primary {
     background-color: #145DA0 !important;
     border: none !important;
@@ -209,7 +206,6 @@ table tbody tr td {
     outline: none !important;
 }
 
-/* Contenedores destacados */
 #analisis-predicciones, #conclusiones {
     background: #e9f0ff;
     border-radius: 16px;
@@ -230,7 +226,6 @@ table tbody tr td {
         inset 0 0 25px rgba(20, 93, 160, 0.12);
 }
 
-/* Listas estilizadas */
 ul {
     list-style-type: disc;
     margin-left: 25px;
@@ -242,20 +237,56 @@ ul li {
     margin-bottom: 0.8rem;
 }
 
-/* Responsive */
+.hamburger {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background-color: #145DA0;
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    padding: 10px 15px;
+    border-radius: 8px;
+    z-index: 1101;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
 @media (max-width: 992px) {
+    .hamburger {
+        display: block;
+    }
+
     .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-        box-shadow: none;
-        padding: 20px;
-        flex-direction: row;
-        overflow-x: auto;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        height: 100vh;
+        background: linear-gradient(135deg, #4A90E2, #145DA0);
+        padding: 30px 20px;
+        box-shadow: 2px 0 12px rgba(0,0,0,0.2);
+        flex-direction: column;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        display: none;
+    }
+
+    .sidebar.active {
+        display: flex;
+        transform: translateX(0);
     }
 
     .sidebar:hover {
-        width: 100%;
+        width: 260px;
+    }
+
+    .main-container {
+        margin-left: 0;
+        padding: 20px;
+        border-radius: 0;
     }
 
     .menu a {
@@ -263,12 +294,6 @@ ul li {
         padding: 10px 14px;
         white-space: nowrap;
         font-size: 0.95rem;
-    }
-
-    .main-container {
-        margin-left: 0;
-        padding: 20px;
-        border-radius: 0;
     }
 
     table {
@@ -286,7 +311,7 @@ ul li {
     }
 }
 
-/* Para móviles pequeños */
+
 @media (max-width: 576px) {
     .menu a {
         font-size: 0.8rem;
@@ -299,7 +324,6 @@ ul li {
     }
 }
 
-/* Scrollbar personalizado para tablas */
 .table-responsive::-webkit-scrollbar {
     height: 8px;
 }
