@@ -131,11 +131,12 @@ def home(request):
 
         if 'task_success' in df.columns:
             pie_counts = df['task_success'].value_counts().sort_index()
-            pie_labels = pie_counts.index.astype(str).tolist()
+            pie_labels = pie_counts.index.astype(int).map({0: 'fail', 1: 'success'}).tolist()
             pie_values = pie_counts.values.tolist()
+
             graph_data['pie'] = {
                 'labels': pie_labels,
-                'values': pie_values
+                'values': pie_values 
             }
 
         if 'bugs_reported' in df.columns and 'distractions' in df.columns:
