@@ -174,6 +174,12 @@
                 </button>
             </div>
             <canvas id="canvasGrafico" width="700" height="400"></canvas>
+            <div id="grafico-conclusion"
+                 style="display: none; margin-top: 15px; padding: 10px; background: #eef5ff; border-left: 4px solid #007bff;">
+                <strong>Conclusión:</strong>
+                <p id="conclusion-text" style="margin: 0;"></p>
+            </div>
+
         </div>
 
         <div id="estadisticas" style="display:none;">
@@ -533,6 +539,8 @@
 
     function cambiarGrafico(tipo) {
         const ctx = document.getElementById('canvasGrafico').getContext('2d');
+        const conclusionDiv = document.getElementById('grafico-conclusion')
+        const conclusionText = document.getElementById('conclusion-text')
 
         if (myChart) {
             myChart.destroy();
@@ -562,6 +570,11 @@
                         responsive: true
                     }
                 };
+                conclusion = 'El análisis del histograma muestra que la frecuencia absoluta de horas codificadas tiene ' +
+                    'un pico máximo de aproximadamente 120 en el intervalo de 5.04 a 6.21 horas, con una distribución que ' +
+                    'disminuye simétricamente hacia los extremos, donde los intervalos de 0.38 a 1.56 horas y 9.68 a 12.04 ' +
+                    'horas presentan las frecuencias más bajas (alrededor de 10), indicando que la mayoría de las sesiones de ' +
+                    'codificación se concentran alrededor de 5-6 horas, con una distribución que sugiere una tendencia unimodal centrada en este rango.'
                 break;
 
             case 'pie':
@@ -597,6 +610,8 @@
                         }
                     }
                 };
+                conclusion = 'El análisis del gráfico de pastel muestra que de un total de 493 casos, el 61.3% (303 casos)' +
+                    ' fueron exitosos (success), mientras que el 38.7% (190 casos) fallaron (fail), indicando una mayor proporción de éxito en comparación con los fallos.'
                 break;
 
 
@@ -621,6 +636,11 @@
                         responsive: true
                     }
                 };
+                conclusion = 'El análisis del gráfico de barras indica que el número promedio de bugs reportados varía con ' +
+                    'el número de distracciones, mostrando un pico de aproximadamente 1.0 bug con 3 distracciones, valores ' +
+                    'similares (alrededor de 1.0) con 0 y 8 distracciones, y un descenso a un mínimo de 0.7-0.8 bugs entre 4 ' +
+                    'y 7 distracciones, sugiriendo que un nivel moderado de distracciones (alrededor de 3) podría estar asociado ' +
+                    'con un mayor número de errores reportados, mientras que niveles muy bajos o muy altos de distracciones muestran un efecto menos pronunciado.'
                 break;
 
             case 'bar_productivity':
@@ -644,6 +664,11 @@
                         responsive: true
                     }
                 };
+                conclusion = 'El análisis del gráfico de barras muestra que el número promedio de commits aumenta con la ' +
+                    'horas de codificación, con un mínimo de aproximadamente 1 commit para 0-1 horas, un incremento gradual ' +
+                    'hasta 4 commits para 4-6 horas, un pico de 6 commits para 6-8 horas, un máximo de 8 commits para 8-10 ' +
+                    'horas, y el valor más alto de 10 commits para más de 10 horas, indicando una relación positiva y no lineal ' +
+                    'entre el tiempo de codificación y la productividad medida en commits.'
                 break;
 
             case 'scatter':
@@ -664,6 +689,11 @@
                         responsive: true
                     }
                 };
+                conclusion = 'El análisis estadístico del gráfico de dispersión revela una tendencia positiva moderada ' +
+                    'entre la ingesta de cafeína (0-600 mg) y la carga cognitiva (2-10), con mayor densidad de datos entre ' +
+                    '100-400 mg de cafeína y cargas cognitivas de 4-7, indicando un efecto más consistente en este rango; sin embargo, ' +
+                    'la amplia dispersión de puntos sugiere que la relación no es lineal y podría estar influenciada por otros factores, ' +
+                    'con outliers notables como cargas cognitivas altas (8-10) a bajas dosis de cafeína (<200 mg).'
                 break;
 
             default:
@@ -672,6 +702,8 @@
         }
 
         myChart = new Chart(ctx, config);
+        conclusionDiv.style.display = 'block';
+        conclusionText.textContent = conclusion;
     }
 
     function showContent(id) {
@@ -698,7 +730,7 @@
         sidebar.classList.toggle("sidebar.active");
     });
 
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", function (event) {
         if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
             sidebar.classList.remove("active");
         }

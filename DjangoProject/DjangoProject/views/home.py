@@ -136,7 +136,7 @@ def home(request):
 
             graph_data['pie'] = {
                 'labels': pie_labels,
-                'values': pie_values 
+                'values': pie_values
             }
 
         if 'bugs_reported' in df.columns and 'distractions' in df.columns:
