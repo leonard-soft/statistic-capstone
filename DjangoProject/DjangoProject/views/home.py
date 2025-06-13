@@ -2,7 +2,6 @@ import os
 
 import numpy as np
 import pandas as pd
-import statistics
 from django.shortcuts import render
 from django.conf import settings
 import json
@@ -186,6 +185,8 @@ def home(request):
                 'x': scatter_points['coffee_intake_mg'].tolist(),
                 'y': scatter_points['cognitive_load'].tolist()
             }
+
+
 
     return render(request, 'charge_csv.html', {
         'Columns': column,

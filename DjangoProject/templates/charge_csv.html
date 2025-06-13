@@ -423,7 +423,7 @@
             <h3>Predicciones Basadas en el Modelo</h3>
             <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse;">
                 <thead>
-                <tr style="background-color: #eee;">
+                <tr>
                     <th>Uso de IA (horas)</th>
                     <th>Bugs Reportados</th>
                     <th>Productividad Promedio</th>
@@ -453,18 +453,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-
-            <h3>Modelo de Regresión Lineal</h3>
-            {% if modelo_regresion.formula %}
-                <p><strong>Fórmula:</strong> {{ modelo_regresion.formula }}</p>
-            {% else %}
-                <p><em>No se ha calculado la fórmula del modelo.</em></p>
-            {% endif %}
-            {% if modelo_regresion.r2 %}
-                <p><strong>R²:</strong> {{ modelo_regresion.r2 }}</p>
-            {% else %}
-                <p><em>No se ha calculado el coeficiente de determinación (R²).</em></p>
-            {% endif %}
 
             <h3>Conclusión del Análisis</h3>
             <p>
