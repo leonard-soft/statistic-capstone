@@ -13,6 +13,8 @@ import os
 import os.path
 from pathlib import Path
 
+from django.contrib import staticfiles
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +28,8 @@ SECRET_KEY = 'django-insecure-=r0wync!poz*1p8!=b%d-32n#sr7ar7zi_p!-4@v)vjs(k8y&f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['statistic-capstone.onrender.com']
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'statistic-capstone.onrender.com']
 
 # Application definition
 

@@ -87,8 +87,6 @@ def home(request):
             # Ejemplo de probabilidad
             umbral_p80 = productividad.quantile(0.8)
             p_prod_mayor_80 = (productividad > umbral_p80).mean()
-            print(productividad)
-            print(round(p_prod_mayor_80, 2))
             probabilidad_info.append(["P (Productividad > 80)", round(p_prod_mayor_80, 2)])
 
         df['productividad'] = df['commits'] / df['hours_coding']

@@ -401,7 +401,7 @@
             <h3>Probabilidades Calculadas</h3>
             <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse;">
                 <thead>
-                <tr style="background-color: #eee;">
+                <tr>
                     <th>Descripción</th>
                     <th>Probabilidad</th>
                 </tr>
@@ -456,23 +456,22 @@
 
             <h3>Conclusión del Análisis</h3>
             <p>
-                El análisis de probabilidad permite identificar patrones relevantes en la productividad de los
-                desarrolladores. Por ejemplo, se observa que la probabilidad de superar cierto umbral de productividad
-                está
-                influenciada por factores como las horas de sueño, el consumo de café y el uso de herramientas de IA.
-                Las
-                predicciones sugieren que a mayor experiencia y formación académica, mayor es la productividad esperada.
-                El
-                modelo de regresión tiene un R² de
-                {% if modelo_regresion.r2 %}
-                    {{ modelo_regresion.r2 }},
-                    lo que indica que aproximadamente {{ modelo_regresion.r2|floatformat:0 }}% de la variabilidad en la
-                    productividad puede ser explicada por las variables seleccionadas.
-                {% else %}
-                    (no disponible),
-                    por lo que no se puede estimar la calidad del modelo.
-                {% endif %}
-                Esto ofrece una base sólida para tomar decisiones sobre estrategias de mejora del rendimiento.
+                El análisis de probabilidad muestra que solo el 20% de los casos superan una productividad de 80, lo que
+                indica que alcanzar altos niveles de productividad no es frecuente dentro del conjunto de datos
+                analizado. Las predicciones generadas por el modelo se concentran principalmente en un rango de valores
+                moderados, entre 0.5 y 2.0, reflejando un comportamiento mayormente medio de la productividad. Sin
+                embargo, se observa que algunos intervalos de predicción son muy amplios, lo que sugiere una
+                considerable incertidumbre en ciertas estimaciones y posiblemente una falta de precisión del modelo en
+                casos extremos.
+            </p>
+            <p>
+                Por otro lado, los valores reales observados tienden a ser bajos, con frecuencia cercanos a 0 o 1, lo
+                que evidencia que el modelo en algunos casos podría estar sobreestimando la productividad. A pesar de
+                ello, el modelo muestra un mejor desempeño en predicciones cercanas al promedio (entre 0.9 y 1.5), donde
+                las estimaciones tienden a ser más confiables y con menor margen de error. Finalmente, aunque los
+                intervalos de predicción pueden ser amplios, en la mayoría de los casos logran incluir el valor real
+                observado, lo que demuestra una adecuada cobertura estadística y un funcionamiento aceptable del modelo
+                dentro de su rango esperado.
             </p>
         </div>
 
