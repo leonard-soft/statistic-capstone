@@ -10,4 +10,4 @@ python manage.py migrate
 python manage.py collectstatic --noinput
 
 # Iniciar el servidor WSGI con Gunicorn
-gunicorn DjangoProject.wsgi:application --bind 0.0.0.0:$PORT
+gunicorn DjangoProject.wsgi:application

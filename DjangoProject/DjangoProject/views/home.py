@@ -83,7 +83,10 @@ def home(request):
             }
 
             # Ejemplo de probabilidad
-            p_prod_mayor_80 = (productividad > 80).mean()
+            umbral_p80 = productividad.quantile(0.8)
+            p_prod_mayor_80 = (productividad > umbral_p80).mean()
+            print(productividad)
+            print(round(p_prod_mayor_80, 2))
             probabilidad_info.append(["P (Productividad > 80)", round(p_prod_mayor_80, 2)])
 
         # Predicciones (simplificadas)
